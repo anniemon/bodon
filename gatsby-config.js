@@ -1,7 +1,9 @@
+require("dotenv").config()
+
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
+    title: `예인 & 서정 결혼식`,
+    description: `예인과 서정의 결혼식에 초대합니다.`,
     author: `@gatsbyjs`,
   },
   plugins: [
@@ -24,22 +26,22 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `예인 & 서정 결혼식`,
+        short_name: `예인 & 서정`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#fefacb`,
+        theme_color: `#fefacb`,
         display: `minimal-ui`,
-        icon: `src/images/logo.svg`, // This path is relative to the root of the site.
+        icon: `src/images/love-is-a-way-of-being.jpeg`, // This path is relative to the root of the site.
       },
     },
     {
       resolve: "gatsby-plugin-react-svg",
       options: {
         rule: {
-          include: /assets/ 
-        }
-      }
+          include: /assets/,
+        },
+      },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline

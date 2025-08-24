@@ -1,4 +1,4 @@
-@import url('./fonts/silk-serif-bold/stylesheet.css');
+@import url("./fonts/silk-serif-bold/stylesheet.css");
 .divider {
   width: 100vw;
   height: 18vh;
@@ -8,7 +8,7 @@
 }
 
 .divider-text {
-  font-family: 'silk_serifbold';
+  font-family: "Montserrat", sans-serif;
   margin: 0;
   margin-top: 1rem;
 }
@@ -23,5 +23,12 @@
 @media only screen and (max-width: 767px) {
   .divider {
     height: 30vh;
+  }
 }
+
+.title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
 }

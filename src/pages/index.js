@@ -1,65 +1,77 @@
-import React from "react"
-import { Link } from "gatsby"
+import React, { useState, useEffect } from "react"
 
 import Layout from "../components/layout"
 import Hero from "../components/hero"
-import Divider from "../components/divider"
+// import Divider from "../components/divider"
 import Event from "../components/event"
-import SingleEvent from "../components/single-event"
 import Confirmation from "../components/confirmation"
-import DressCode from "../components/dresscode"
 import Guestbook from "../components/guestbook"
 import Contact from "../components/contact"
+import ceremonyImg from "../images/ceremony.png"
 
-import Masia from "../images/masia.png"
-import Iglesia from "../images/iglesia.png"
+
+// Ceremony Image Container Style
+const ceremonyContainerStyle = {
+  width: "100%",
+  display: "flex",
+  justifyContent: "center",
+  padding: "2rem 0",
+  backgroundColor: "#fefacb",
+}
+
+const ceremonyImageStyle = {
+  width: "100%",
+  maxWidth: "35vw",
+  height: "auto",
+}
+
+// Media query for mobile
+const mobileCeremonyImageStyle = {
+  maxWidth: "120%",
+}
 
 export default () => {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    // Check if window is defined (for SSR)
+    if (typeof window !== "undefined") {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth <= 767)
+      }
+
+      // Initial check
+      checkMobile()
+
+      // Add event listener for resize
+      window.addEventListener("resize", checkMobile)
+
+      // Clean up
+      return () => window.removeEventListener("resize", checkMobile)
+    }
+  }, [])
 
   return (
     <Layout>
       <Hero />
-      <Divider />
-      {/* <Event
-        id="evento"
-        title="LA PRE-BODA"
-        desc="Para calentar motores y dar la bienvenida a los que vienen de fuera"
-        img={<img className="event-image" src={Masia}></img>}
-        infoTitle="Comida de bienvenida"
-        schedule="13:30h, Jueves 15 de Octubre de 2020"
-        location="TBD"
-        address=""
-        mobility="Se facilitará servicio de autocar desde el centro de Barcelona y de regreso."
-        map="Mapa e indicaciones"
-        mapLink="https://www.google.com/maps/place/Passatge+Sant+Joan,+08348+Cabrils,+Barcelona/@41.5209197,2.3823943,17z/data=!3m1!4b1!4m5!3m4!1s0x12a4b4213b268661:0x3d904ff5ded2049c!8m2!3d41.5209203!4d2.3844475"
-      /> */}
+      <div id="ceremony" style={ceremonyContainerStyle}>
+        <img
+          src={ceremonyImg}
+          alt="결혼식 일시"
+          style={isMobile ? mobileCeremonyImageStyle : ceremonyImageStyle}
+        />
+      </div>
+      <Confirmation />
+      <Guestbook />
       <Event
         id="evento"
-        title="LA BODA"
-        desc="¡El gran día!"
-        img={<img className="event-image" src={Iglesia}></img>}
-        infoTitle="La Ceremonia"
-        schedule="12:30h, Sábado, 17 de Octubre de 2020"
-        location="Basílica de los Santos Mártires Justo y Pastor"
-        address="Plaça de Sant Just, s/n, 08002 Barcelona"
-        mobility="Se facilitará servicio de autocar desde el centro de Barcelona a la Iglesia y, después de la ceremonia, desde la Iglesia a la Masía Ribas."
-        map="Mapa e indicaciones"
-        mapLink="https://www.google.com/maps/place/Bas%C3%ADlica+dels+Sants+M%C3%A0rtirs+Just+i+Pastor/@41.3828179,2.1760105,17z/data=!3m1!4b1!4m5!3m4!1s0x12a4a2f8dc412f27:0x10cb34ec22f1c0e4!8m2!3d41.3828139!4d2.1782045"
+        infoTitle="오시는 길"
+        location="문학살롱 초고"
+        address="서울 마포구 독막로2길 30 지하 1층"
+        mobility="(대중교통 이용을 권장합니다.)"
+        map="네이버 지도 바로가기"
+        mapLink="https://naver.me/FlcphEXE"
       />
-      <SingleEvent
-        id="evento"
-        img={<img className="event-image" src={Masia}></img>}
-        infoTitle="La Celebración"
-        schedule="14:00h, Sábado, 17 de Octubre de 2020"
-        location="Masía Ribas"
-        address="Manuel Carrasco i Formiguera 08850 Gavà, Barcelona"
-        mobility="Se facilitará servicio de autocar desde la Iglesia a la Masía Ribas y de regreso al centro de Barcelona a varias horas de la noche."
-        map="Mapa e indicaciones"
-        mapLink="https://www.google.com/maps/place/Masia+Ribas+ahora+es+La+Centenaria+1779+-+Unique+events/@41.3005078,1.995518,17z/data=!3m1!4b1!4m5!3m4!1s0x12a49d29b587cec7:0x13e5b9b43d7af993!8m2!3d41.3005038!4d1.997712"
-      />
-      <Confirmation />
-      <DressCode />
-      <Guestbook />
       <Contact />
     </Layout>
   )

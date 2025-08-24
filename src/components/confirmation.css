@@ -1,27 +1,49 @@
-@import url('./fonts/silk-serif-bold/stylesheet.css');
+@import url("./fonts/silk-serif-bold/stylesheet.css");
 #confirmar {
-  background-color: #EDEFED;
+  background-color: #fefacb;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 3rem;
+  position: relative;
+}
+
+/* Section separator */
+#confirmar::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  max-width: 800px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(0, 0, 0, 0.2),
+    transparent
+  );
 }
 
 .conf-arrow {
   width: 2rem;
 }
 
-.conf-btn{
+.conf-btn {
   border: 5px solid white;
   cursor: pointer;
   padding: 4px;
   width: 13vw;
   margin: 0.5rem;
   background-color: transparent;
+  font-size: 1rem;
   font-weight: 600;
-  font-size: 1.25rem;
 }
 
-.conf-btn:hover{
+.conf-btn:hover {
   background-color: white;
 }
 
@@ -30,39 +52,100 @@
 }
 
 .conf-open {
-  width: 50vw;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.conf-header{
+.conf-header {
   width: 35vw;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: 2rem;
-}
-
-.conf-title{
-  font-family: 'silk_serifbold';
+  align-items: flex-start;
   text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
-.conf-text{
-  text-align: center;
+.conf-title {
+  font-family: "Montserrat", sans-serif;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 0.75rem;
 }
 
-.conf-form{
+/* Título subrayado */
+.conf-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 4rem;
+  height: 2px;
+  background-color: #000;
+}
+
+.conf-text {
+  text-align: left;
+  font-size: 0.8rem;
+  margin: 0.5rem 0;
+  color: red;
+}
+
+.conf-form {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 @media only screen and (max-width: 767px) {
-  .conf-header{
-    width: 80vw;
-    margin: 1rem;
+  .confirmar {
+    width: 100vw;
   }
 
-  .conf-btn{
-    width: 50vw;
+  .conf-title {
+    font-weight: 600;
   }
+
+  .conf-header {
+    width: 80vw;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .conf-btn {
+    border: 5px solid white;
+    cursor: pointer;
+    padding: 4px;
+    width: 13vw;
+    margin: 0.5rem;
+    background-color: transparent;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .conf-open {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.confirmation {
+  font-family: "Montserrat", sans-serif;
+  text-align: center;
+  margin-top: 1rem;
+  width: 100%;
+  font-weight: 600;
+  font-size: 1rem;
 }

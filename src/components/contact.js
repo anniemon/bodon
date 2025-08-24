@@ -1,44 +1,79 @@
-import { Link } from "gatsby"
-import React from "react"
-
+import React, { useState, useEffect } from "react"
+import yeonji_v from "../images/yeonji_v.jpg"
 import "./contact.css"
 
-import Bouquet from "./assets/bouquet.svg"
-import Hat from "./assets/hat.svg"
+const Contact = () => {
+  const [copySuccess, setCopySuccess] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
+  useEffect(() => {
+    // Check if window is defined (for SSR)
+    if (typeof window !== "undefined") {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth <= 767)
+      }
 
-class Contact extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+      // Initial check
+      checkMobile()
+
+      // Add event listener for resize
+      window.addEventListener("resize", checkMobile)
+
+      // Clean up
+      return () => window.removeEventListener("resize", checkMobile)
     }
+  }, [])
+
+  const copyToClipboard = () => {
+    const accountNumber = "1000-8314-8244"
+    navigator.clipboard
+      .writeText(accountNumber)
+      .then(() => {
+        setCopySuccess(true)
+        setTimeout(() => {
+          setCopySuccess(false)
+        }, 2000)
+      })
+      .catch(err => {
+        console.error("Failed to copy: ", err)
+      })
   }
 
-  render() {
-    return (
-      <div id="contact">
-        <div className="contact-header">
-          <h2 className="contact-title">CONTACTO</h2>
-        </div>
-        <div className="contact-content">
-          <div className="contact-desc">
-              <Bouquet className="contact-img"/>
-            <div className="contact-text">
-              <h3 className="contact-text-title">Alejandra:</h3>
-              <div className="contact-text-content">+34 609 589 775</div>
-            </div>
+  return (
+    <div id="contact">
+      <div className="contact-content">
+        <div className="contact-details">
+          <div className="contact-title">
+              <span>마음 전하실 곳</span>
           </div>
-          <div className="contact-desc">
-            <Hat className="contact-img"/>
-            <div className="contact-text">
-              <h3 className="contact-text-title">Alejandro:</h3>
-              <div className="contact-text-content">+34 622 826 408</div>
+          <div className="yeonji-image-container">
+            <img src={yeonji_v} alt="yeonji_v" className="yeonji-image" />
+          </div>
+          <div className="contact-info">
+            <div className="contact-info-item">
+              <div>
+                <div className="contact-item-content-wrapper">
+                  <div className="contact-item-content">
+                    토스뱅크 1000-8314-8244
+                  </div>
+                  <button
+                    className="copy-button"
+                    onClick={copyToClipboard}
+                    title="계좌번호 복사"
+                  >
+                    복사
+                  </button>
+                  {copySuccess && (
+                    <div className="copy-success">복사 완료!</div>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    )
-  }
+    </div>
+  )
 }
 
-export default Contact;
+export default Contact

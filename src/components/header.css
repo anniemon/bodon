@@ -1,17 +1,41 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&display=swap");
 header {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   width: 100%;
   background: white;
   display: flex;
   flex-direction: column;
 }
 
+.header-text {
+  font-family: "Noto Serif KR", serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.date-line,
+.time-line {
+  display: block;
+  line-height: 1.3;
+}
+
+.header-sub-text {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: #00cf70;
+  font-weight: 600;
+}
+
 .header-brand {
   width: 100%;
   max-width: 100vw;
   margin: 0 auto;
-  margin-top: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .header-menu {
@@ -19,22 +43,48 @@ header {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  background-color: #fefacb;
 }
 
-.header-menu, a {
-  color: #434142;
+.header-menu,
+a {
   text-decoration: none;
-  margin: 0 1.5rem 0.25rem 1.5rem;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background-color: #fefacb;
+  color: black;
+  padding: 0.25rem 1.5rem;
 }
 
-@media only screen and (min-width:768px) {
+.header-menu a {
+  margin: 0 1rem;
+  text-decoration: none;
+  color: #434142;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+.header-menu a:hover {
+  color: #000;
+}
+
+.hidden {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
   .header-brand {
     display: flex;
     justify-content: center;
   }
-  
+
   .header-btn {
+    display: none;
+  }
+
+  /* 데스크탑에서만 hidden 클래스가 작동하도록 */
+  .header-menu.hidden {
     display: none;
   }
 }
@@ -47,31 +97,69 @@ header {
     display: flex;
     justify-content: space-between;
   }
+
+  .header-text {
+    font-family: "Noto Serif KR", serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 0.5rem;
+    margin-bottom: 0.25rem;
+    text-align: center;
+    width: 100%;
+  }
+
+  .date-line,
+  .time-line {
+    display: block;
+    line-height: 1.3;
+    text-align: center;
+    width: 100%;
+  }
+
+  .header-sub-text {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    color: #00cf70;
+    font-weight: 600;
+  }
+
   .header-menu {
     margin: 0;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
   }
+
+  .header-menu::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
+  .header-menu a {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 0.5rem 2rem;
+    margin: 0;
+  }
+
   .arrow-up {
     transform: rotate(180deg);
     -webkit-transform: rotate(180deg);
   }
-  .header-menu, a {
-    display: flex;
-    justify-content: flex-end;
-    margin: 0.5rem;
-  }
+
   .header-btn {
-    color: #434142;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
+    display: none;
   }
+
   .header-logo {
     width: 85%;
-  }
-  .hidden {
-    display: none;
   }
 }

@@ -25,13 +25,21 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <>
-      <Header/>
-      <div>
-        <main>{children}</main>
-      <Footer />
+    <div style={{ overflow: "hidden", width: "100%", margin: 0, padding: 0 }}>
+      <Header />
+      <div style={{ overflow: "hidden", width: "100%", margin: 0, padding: 0 }}>
+        <main
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          {children}
+        </main>
+        <Footer />
       </div>
-    </>
+    </div>
   )
 }
 

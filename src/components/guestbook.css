@@ -1,144 +1,279 @@
 @import url("./fonts/silk-serif-bold/stylesheet.css");
-@import url("https://fonts.googleapis.com/css2?family=Dawning+of+a+New+Day&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap");
 
 #guestbook {
-  background-color: #edefed;
+  background-color: #fefacb;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  position: relative;
+}
+
+/* Section separator at the bottom */
+#guestbook::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  max-width: 800px;
+  height: 1px;
 }
 
 .note-title {
-  font-family: "silk_serifbold";
-  text-align: center;
-  margin-top: 2rem;
+  font-family: "Montserrat", sans-serif;
+  text-align: left;
+  margin-top: 1rem;
+  font-weight: 600;
+  width: 100%;
+  font-size: 1rem;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+/* Title underline */
+.note-title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 7rem;
+  height: 2px;
+  background-color: #000;
+}
+
+.note-wrapper {
+  display: flex;
+  width: 35vw;
+  max-width: 500px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin: 0 auto;
 }
 
 .note-content {
   display: flex;
   flex-direction: row;
-  width: 44vw;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
 }
 
 .note-form {
-  width: 25vw;
+  width: 35vw;
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: flex-start;
+  align-items: flex-start;
+  margin: 0 auto;
 }
 
 .note-icon {
   width: 6rem;
   height: 5rem;
 }
+
 .note-name {
-  width: 25vw;
+  width: 20vw;
+  min-width: 150px;
   margin: 0;
   padding: 0;
   border: none;
+  font-family: "Montserrat", sans-serif;
   font-style: normal;
+  text-align: center;
+  font-size: 0.8rem;
 }
 
 .note-label {
-  font-family: "silk_serifbold";
-  font-size: 1.4rem;
-  margin: 1rem 0.25rem 0 0.25rem;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  margin: 0.5rem 0;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+  width: 100%;
+  align-items: flex-start;
+  text-align: left;
 }
 
-.note-label::placeholder{
+.note-label::placeholder {
+  text-align: left;
+  font-size: 0.8rem;
   font-style: italic;
 }
 
-.note-label input,
-textarea {
+.note-label input {
+  min-width: 150px;
   font-family: "Montserrat", sans-serif;
-  font-size: 1rem;
+  font-size: 0.8rem;
   color: grey;
+  text-align: left;
+}
+.note-label textarea {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  color: grey;
+  width: 100%;
+  text-align: left;
 }
 
-input,
-textarea ::placeholder {
-  color: grey;
+.note-name::placeholder {
+  font-size: 0.8rem;
   font-style: italic;
+}
+
+/* 이미 있는 input, textarea placeholder 스타일이 있다면 아래에 추가 */
+input::placeholder,
+textarea::placeholder {
+  font-size: 0.8rem;
 }
 
 .note-input {
-  height: 5rem;
-  width: 25vw;
+  height: 8rem;
+  width: 100%;
+  font-size: 0.6rem;
   border: 0;
+  text-align: center;
 }
 
 .submit-note {
   display: flex;
   flex-direction: row;
-  justify-content: right;
-  align-items: center;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 100%;
 }
 
 .submit-note-btn {
-  border: 5px solid white;
+  border: 5px solid #00cf70;
+  border-radius: 10px;
   padding: 4px;
   cursor: pointer;
-  width: 13vw;
-  margin: 2rem 3rem;
+  width: 80px;
+  min-width: 80px;
+  margin: 2rem 0;
   background-color: transparent;
   font-weight: 600;
-  font-size: 1.25rem;
-  align-self: center;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.submit-note-btn:hover {
+  background-color: #00cf70;
+  border-radius: 10px;
 }
 
 .error-note-msg {
   color: red;
+  text-align: center;
+  font-size: 0.8rem;
 }
 
 .success {
-  width: 30vw;
-  height: 5vw;
-  margin: 2rem 0 0 0;
+  font-family: "Montserrat", sans-serif;
+  width: auto;
+  height: auto;
+  margin: 0.5rem 0;
   background-color: white;
-  align-self: center;
+  align-self: flex-end;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 0.8rem;
+  padding: 0.5rem;
+}
+
+.wall-wrapper {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .wall {
-  width: 70vw;
+  width: 100%;
+  max-width: 1400px;
   display: -webkit-box; /* Not needed if autoprefixing */
   display: -ms-flexbox; /* Not needed if autoprefixing */
   display: flex;
-  margin-left: -30px; /* gutter size offset */
+  margin: 0 auto; /* 가운데 정렬 */
+  justify-content: center;
 }
 
 .wall-title {
-  font-family: "silk_serifbold";
-  font-size: 1.4rem;
-  width: 77vw;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 3rem;
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.wall-title-text {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  text-align: left;
+  width: 100%;
+  padding-left: 4%;
+  margin-bottom: 0.5rem;
+}
+
+.wall-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  color: #434142;
 }
 
 hr.wall-divider {
-  border: 0.75px solid white;
-  background-color: white;
+  border: 0.75px solid black;
+  background-color: black;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .wall-column {
-  padding-left: 30px; /* gutter size */
   background-clip: padding-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 30px;
+  min-width: 250px;
+  width: auto;
 }
 
 .wall-note {
-  width: 15rem;
-  margin: 1rem;
-  padding: 1rem;
+  width: 80%;
+  min-width: 80%;
+  max-width: 18rem;
+  margin: 0 0 2rem 0;
+  padding: 0.5rem;
   background-color: white;
   border: none;
   text-decoration: none;
   list-style: none;
-  box-sizing: content-box;
+  box-sizing: border-box;
+  text-align: left;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: block;
+  position: relative;
 }
 
 .note-date {
@@ -147,9 +282,9 @@ hr.wall-divider {
 }
 
 .note-message {
-  font-family: "Dawning of a New Day", cursive;
-  font-size: 1.45rem;
-  min-height: 3rem;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  min-height: 2rem;
   margin-top: 0.5rem;
 }
 
@@ -157,55 +292,202 @@ hr.note-divider {
   width: 10%;
   border: 0.75px solid #434142;
   background-color: #434142;
+  margin: 15px 0;
 }
 
 .note-signature {
-  font-family: "Dawning of a New Day", cursive;
-  font-size: 1.45rem;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin: 0;
+  padding: 0;
 }
 
 .wall-btn {
-  color: #434142;
-cursor: pointer;
-background-color: transparent;
-border: none;
+  cursor: pointer;
+  background-color: white;
+  color: black;
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: "Montserrat", sans-serif;
+  border: 2px solid #434142;
+  border-radius: 20px;
+  padding: 8px 15px;
+  margin: 2rem auto;
+  display: block;
+  transition: all 0.2s ease;
+}
+
+.wall-btn:hover {
+  background-color: #434142;
+  color: white;
 }
 
 @media only screen and (max-width: 767px) {
-  .submit-note-btn {
-    width: 50vw;
+  .wall-btn {
+    background-color: white;
+    color: black;
+    font-size: 0.8rem;
+    padding: 6px 12px;
   }
+
+  .wall-btn:hover,
+  .wall-btn:active,
+  .wall-btn:focus,
+  .wall-btn.active {
+    background-color: white !important;
+    color: #434142 !important;
+    border-color: #434142 !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .submit-note-btn {
+    width: 80px;
+    color: black;
+    min-width: 80px;
+    font-size: 0.7rem;
+    margin-top: 2rem;
+    word-break: keep-all;
+    align-self: flex-end;
+    border-radius: 10px;
+  }
+
+  .submit-note-btn:hover {
+    background-color: #00cf70;
+    border-radius: 10px;
+  }
+
   .note-form {
     width: 80vw;
-  }
-  .note-content {
+    max-width: 600px;
     display: flex;
     flex-direction: column;
-    width: 80vw;
-    align-items: center;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin: 0 auto;
   }
-  .note-icon {
-    width: 6rem;
-    height: 5rem;
-    box-align: center;
+
+  .note-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
   }
 
   .note-name {
-    width: 80vw;
+    /* width: 100%; */
+    min-width: 150px;
+    margin: 0;
+    padding: 0;
+    border: none;
   }
+
+  .note-title {
+    font-size: 1rem;
+    text-align: left;
+  }
+
+  .note-wrapper {
+    width: 80vw;
+    max-width: 600px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin: 0 auto;
+  }
+
+  .note-icon {
+    width: 5rem;
+    height: 4rem;
+  }
+
   .note-label {
-    width: 80vw;
+    font-size: 0.8rem;
+    margin: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
   }
+
   .note-input {
-    width: 80vw;
+    height: 8rem;
+    width: 100%;
+    font-size: 0.6rem;
+  }
+
+  .submit-note {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
   }
 
   .success {
-    width: 75vw;
-    height: 15vw;
+    width: auto;
+    height: auto;
+    margin: 0.5rem 0;
+    background-color: white;
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+
+  .wall-wrapper {
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
   }
 
   .wall {
+    width: 100%;
+    max-width: 1400px;
+  }
+
+  .wall-column {
+    padding-left: 10px;
+    padding-right: 10px;
+    min-width: 250px;
     width: auto;
+  }
+
+  .wall-note {
+    max-width: 95%;
+    width: 95%;
+  }
+
+  .wall-title {
+    width: 100%;
+    font-size: 1.1rem;
+    box-sizing: border-box;
+  }
+
+  .wall-title-text {
+    padding-left: 10%;
+    align-items: center;
+  }
+
+  .wall-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+  }
+
+  hr.wall-divider {
+    border: 0.75px solid black;
+    background-color: black;
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+  }
+
+  .wall-btn {
+    font-size: 0.8rem;
+    padding: 6px 12px;
   }
 }

@@ -1,12 +1,7 @@
-import { Link } from "gatsby"
 import React from "react"
-import { Formik, Form, Field, ErrorMessage } from 'formik'
 
 import "./confirmation.css"
 import AtendeeForm from "./attendee-form"
-
-import Arrow1 from "../components/assets/arrow1.svg"
-
 
 class Confirmation extends React.Component {
   constructor(props) {
@@ -26,17 +21,14 @@ class Confirmation extends React.Component {
     return (
       <div id="confirmar">
         <div className="conf-header">
-          <h2 className="conf-title">CONFIRMA TU ASISTENCIA</h2>
+          <div className="conf-title">참석 확인</div>
           <div className="conf-text">
-            Nos encantaría que nos acompañaras en nuestro día. Por favor, confirma si podrás o no venir.
+            *예약이 마감되었습니다.
+            {/* 오실 분들은 반드시 작성해주세요. <br /> (인원 파악 및 자리 배치에 참고하겠습니다.) */}
+          </div>
         </div>
-          <div className={this.state.isOpen ? "conf-closed" : "conf-arrow"}><Arrow1/></div>
-          <button className={this.state.isOpen ? "conf-closed" : "conf-btn"} onClick={this.handleClick}>CONFIRMAR</button>
-        </div>
-        <div className={this.state.isOpen ? "conf-open" : "conf-closed"}>
           <AtendeeForm />
         </div>
-      </div>
     )
   }
 }
