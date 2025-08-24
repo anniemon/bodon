@@ -1,31 +1,170 @@
-@import url('./fonts/silk-serif-bold/stylesheet.css');
+/* @import url("https://fonts.googleapis.com/css?family=Montserrat:400,800&display=swap"); */
+@import url("./fonts/silk-serif-bold/stylesheet.css");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+Korean:wght@400;800&display=swap");
 .hero {
-  font-family: 'silk_serifbold';
-  background-color: #EDEFED;
+  font-family: "Noto Serif KR", serif;
+  background-color: #fefacb;
   display: flex;
   justify-content: center;
+  word-break: keep-all;
+  /* padding: 2rem 0; */
 }
 
 .hero-content {
   width: 100vw;
+  background-color: #fefacb;
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  vertical-align: baseline
+  vertical-align: baseline;
 }
 
+/* Original cover image */
 .hero-cover {
-  max-width: 45vw;
-  margin: 2rem;
+  width: 35vw;
+  max-width: 1100px;
+  height: auto;
+  object-fit: contain;
+  margin-bottom: 2rem;
+  will-change: transform;
+}
+
+/* Carousel wrapper */
+.carousel-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1rem;
+  position: relative;
+  padding: 0 60px;
+}
+
+/* Carousel styles */
+.carousel-container {
+  width: 45vw;
+  max-width: 1100px;
+  position: relative;
+}
+
+.carousel-content {
+  position: relative;
+  width: 100%;
+  height: 550px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fefacb;
+}
+
+.carousel-image {
+  position: absolute;
+  max-width: 100%;
+  max-height: 550px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+  opacity: 0.3;
+  transition: opacity 0.3s ease-in;
+  will-change: opacity, transform;
+}
+
+.carousel-image.loaded {
+  opacity: 1;
+}
+
+.carousel-video-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-aspect-ratio-box {
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%; /* 정확한 16:9 비율 */
+  position: relative;
+}
+
+.carousel-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Fixed position buttons that are always visible */
+.carousel-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.prev-button {
+  left: 350px;
+  color: black;
+}
+
+.next-button {
+  right: 350px;
+  color: black;
+}
+
+.carousel-button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-button.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Carousel indicators */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.carousel-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin: 0 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.carousel-dot.active {
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .hero-text {
-  max-width: 9rem;
-  font-size: 1.75rem;
-  line-height: 1.10;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  font-family: "Montserrat", sans-serif;
+  margin: auto 2rem;
+  font-size: 1rem;
   text-align: center;
 }
 
@@ -35,15 +174,66 @@
 
 @media only screen and (max-width: 767px) {
   .hero-cover {
-    max-width: 80vw;
-    max-height: 30vh;
-    margin: 0;
+    width: 120vw;
+    margin-bottom: 1.5rem;
   }
+
+  .carousel-wrapper {
+    padding: 0 20px;
+  }
+
+  .carousel-container {
+    width: 90vw;
+  }
+
+  .carousel-content {
+    width: 100%;
+    height: 450px;
+  }
+
+  .carousel-image {
+    max-height: 450px;
+  }
+
+  .carousel-video-container {
+    height: 100%;
+    width: 100%;
+  }
+
+  .video-aspect-ratio-box {
+    width: 100%;
+    padding-bottom: 56.25%;
+    margin-top: 20px;
+  }
+
+  .carousel-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .carousel-button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.6rem;
+  }
+
+  .prev-button {
+    left: 5px;
+  }
+
+  .next-button {
+    right: 5px;
+  }
+
   .hero-text {
     margin: 1rem;
     font-size: 1.5rem;
   }
+
   .hero-img {
-    max-height: 30vh;
+    max-height: 60vh;
   }
 }
