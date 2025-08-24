@@ -1,99 +1,136 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.org">
-    <img alt="Gatsby" src="https://www.gatsbyjs.org/monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's default starter
-</h1>
+# 예인 & 서정 결혼식 웹사이트 💒
 
-Kick off your project with this default boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+예인과 서정의 결혼식을 위한 현대적이고 반응형 웹사이트입니다. 결혼식 정보, 방명록, 오시는 길 안내 등의 기능을 제공합니다.
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.org/docs/gatsby-starters/)._
+## ✨ 주요 기능
 
-## 🚀 Quick start
+- **📸 이미지 갤러리 & 비디오**: 결혼 사진들과 YouTube 영상을 포함한 반응형 캐러셀
+- **📝 실시간 방명록**: 축하 메시지를 남길 수 있는 인터랙티브 방명록 (Supabase 연동)
+- **📍 오시는 길**: 결혼식 장소 정보 및 네이버 지도 연결
+- **📱 모바일 최적화**: 모든 기기에서 완벽한 사용자 경험
+- **🎨 현대적 디자인**: 깔끔하고 우아한 UI/UX
 
-1.  **Create a Gatsby site.**
+## 🛠 기술 스택
 
-    Use the Gatsby CLI to create a new site, specifying the default starter.
+- **Frontend**: [Gatsby](https://www.gatsbyjs.org/) (React 기반)
+- **Database**: [Supabase](https://supabase.com/) (PostgreSQL)
+- **Styling**: CSS3 with responsive design
+- **Form Handling**: [Formik](https://formik.org/) + [Yup](https://github.com/jquense/yup)
+- **Layout**: [React Masonry CSS](https://github.com/paulcollett/react-masonry-css)
+- **Deployment**: [Netlify](https://www.netlify.com/)
 
-    ```shell
-    # create a new Gatsby site using the default starter
-    gatsby new my-default-starter https://github.com/gatsbyjs/gatsby-starter-default
-    ```
+## 🚀 빠른 시작
 
-1.  **Start developing.**
+### 전제 조건
 
-    Navigate into your new site’s directory and start it up.
+- Node.js (v14 이상)
+- npm 또는 yarn
+- Supabase 계정
 
-    ```shell
-    cd my-default-starter/
-    gatsby develop
-    ```
+### 설치 및 실행
 
-1.  **Open the source code and start editing!**
+1. **저장소 클론**
 
-    Your site is now running at `http://localhost:8000`!
+   ```bash
+   git clone <repository-url>
+   cd bodon
+   ```
 
-    _Note: You'll also see a second link: _`http://localhost:8000/___graphql`_. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-five/#introducing-graphiql)._
+2. **의존성 설치**
 
-    Open the `my-default-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
+   ```bash
+   npm install
+   # 또는
+   yarn install
+   ```
 
-## 🧐 What's inside?
+3. **환경 변수 설정**
 
-A quick look at the top-level files and directories you'll see in a Gatsby project.
+   프로젝트 루트에 `.env` 파일을 생성하고 다음 변수들을 설정하세요:
 
-    .
-    ├── node_modules
-    ├── src
-    ├── .gitignore
-    ├── .prettierrc
-    ├── gatsby-browser.js
-    ├── gatsby-config.js
-    ├── gatsby-node.js
-    ├── gatsby-ssr.js
-    ├── LICENSE
-    ├── package-lock.json
-    ├── package.json
-    └── README.md
+   ```env
+   GATSBY_SUPABASE_URL=your_supabase_project_url
+   GATSBY_SUPABASE_ANON_KEY=your_supabase_anon_key
+   ```
 
-1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
+4. **Supabase 데이터베이스 설정**
 
-2.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
+   Supabase에서 다음 테이블을 생성하세요:
 
-3.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
+   ```sql
+   CREATE TABLE guestbook (
+     id SERIAL PRIMARY KEY,
+     name TEXT NOT NULL,
+     message TEXT NOT NULL,
+     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+   );
+   ```
 
-4.  **`.prettierrc`**: This is a configuration file for [Prettier](https://prettier.io/). Prettier is a tool to help keep the formatting of your code consistent.
+5. **개발 서버 시작**
 
-5.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.org/docs/browser-apis/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
+   ```bash
+   npm run develop
+   # 또는
+   yarn develop
+   ```
 
-6.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.org/docs/gatsby-config/) for more detail).
+   사이트가 `http://localhost:8000`에서 실행됩니다.
 
-7.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.org/docs/node-apis/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
+## 📁 프로젝트 구조
 
-8.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.org/docs/ssr-apis/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
+```
+.
+├── src/
+│   ├── components/          # React 컴포넌트들
+│   │   ├── hero.js         # 메인 갤러리 & 비디오 캐러셀
+│   │   ├── guestbook.js    # 방명록 기능
+│   │   ├── event.js        # 오시는 길 정보
+│   │   ├── contact.js      # 연락처 정보
+│   │   └── ...
+│   ├── images/             # 이미지 에셋들
+│   ├── utils/              # 유틸리티 함수들
+│   │   └── supabaseClient.js
+│   └── pages/
+│       └── index.js        # 메인 페이지
+├── netlify.toml            # Netlify 배포 설정
+├── gatsby-config.js        # Gatsby 설정
+└── package.json
+```
 
-9.  **`LICENSE`**: Gatsby is licensed under the MIT license.
+## 🎯 주요 컴포넌트
 
-10. **`package-lock.json`** (See `package.json` below, first). This is an automatically generated file based on the exact versions of your npm dependencies that were installed for your project. **(You won’t change this file directly).**
+### Hero 컴포넌트
 
-11. **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
+- 결혼 사진들과 YouTube 영상을 보여주는 캐러셀
+- 모바일에서 YouTube 임베드 크기 최적화
+- 이미지 프리로딩으로 성능 향상
 
-12. **`README.md`**: A text file containing useful reference information about your project.
+### Guestbook 컴포넌트
 
-## 🎓 Learning Gatsby
+- Supabase를 이용한 실시간 방명록
+- 중복 제출 방지 기능
+- 반응형 Masonry 레이아웃
 
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.org/). Here are some places to start:
+### Event 컴포넌트
 
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.org/tutorial/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
+- 결혼식 장소 정보
+- 네이버 지도 연동
 
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.org/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
+## 🚀 배포
 
-## 💫 Deploy
+### Netlify 배포
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
+1. **Netlify에 연결**
 
-[![Deploy with ZEIT Now](https://zeit.co/button)](https://zeit.co/import/project?template=https://github.com/gatsbyjs/gatsby-starter-default)
+   - GitHub 저장소를 Netlify에 연결
+   - 빌드 설정: `npm run build`
+   - 퍼블리시 디렉토리: `public`
 
-<!-- AUTO-GENERATED-CONTENT:END -->
+2. **환경 변수 설정**
+
+   - Netlify 대시보드에서 환경 변수 추가:
+     - `GATSBY_SUPABASE_URL`
+     - `GATSBY_SUPABASE_ANON_KEY`
+
+3. **자동 배포**
+   - `master` 브랜치에 푸시하면 자동으로 배포됩니다.
