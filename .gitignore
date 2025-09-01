@@ -72,3 +72,6 @@ yarn-error.log
 .netlify
 
 *.json
+.netlify/state.json
+*.pem
+.gitignore
