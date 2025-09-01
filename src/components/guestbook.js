@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react"
 import { useFormik } from "formik"
 import * as yup from "yup"
 import Masonry from "react-masonry-css"
-import { supabase } from "../utils/supabaseClient"
 
 import "./guestbook.css"
 
@@ -27,18 +26,10 @@ const Guestbook = props => {
   async function fetchNotes() {
     try {
       setLoading(true)
-      const { data, error } = await supabase
-        .from("guestbook")
-        .select("*")
-        .order("created_at", { ascending: false })
-
-      if (error) {
-        throw error
-      }
-
-      if (data) {
-        setNotes(data)
-      }
+      const res = await fetch("/.netlify/functions/guestbook")
+      if (!res.ok) throw new Error("Failed to load guestbook")
+      const json = await res.json()
+      if (json && json.data) setNotes(json.data)
     } catch (error) {
       console.error("Error fetching notes:", error)
     } finally {
@@ -48,20 +39,15 @@ const Guestbook = props => {
 
   async function addNewNote({ name, message }) {
     try {
-      const { data, error } = await supabase
-        .from("guestbook")
-        .insert([{ name, message }])
-        .select()
-
-      if (error) {
-        throw error
-      }
-
-      if (data && data.length > 0) {
-        setNotes(prevNotes => [data[0], ...prevNotes])
-        return true
-      }
-      return false
+      const res = await fetch("/.netlify/functions/guestbook", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ name, message }),
+      })
+      if (!res.ok) throw new Error("Failed to add note")
+      // Optimistic reload
+      await fetchNotes()
+      return true
     } catch (error) {
       console.error("Error adding note:", error)
       return false

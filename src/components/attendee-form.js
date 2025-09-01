@@ -1,30 +1,7 @@
 import React, { useState } from "react"
 import { useFormik } from "formik"
-import * as yup from "yup"
-import { supabase } from "../utils/supabaseClient"
 
 import "./attendee-form.css"
-
-
-yup
-  .object({
-    name: yup
-      .string()
-      .required("Necesitamos tu nombre completo para apuntarte en la lista"),
-    preboda: yup.boolean(),
-    boda: yup.boolean(),
-    noviene: yup.boolean(),
-  })
-  .test("myCustomCheckboxTest", null, obj => {
-    if (obj.preboda || obj.boda || obj.noviene) {
-      return true
-    }
-    return new yup.ValidationError(
-      "Elige si podrás acompañarnos o no podrás venir",
-      null,
-      "myCustomFieldName"
-    )
-  })
 
 const AtendeeForm = props => {
   const [formSent, setFormSent] = useState(false)
@@ -33,16 +10,13 @@ const AtendeeForm = props => {
   async function addAttendee(attendeeData) {
     try {
       setLoading(true)
-      const { data, error } = await supabase
-        .from("attendees")
-        .insert([attendeeData])
-        .select()
-
-      if (error) {
-        throw error
-      }
-
-      return data
+      const res = await fetch("/.netlify/functions/attendees", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(attendeeData),
+      })
+      if (!res.ok) throw new Error("Failed to add attendee")
+      return true
     } catch (error) {
       console.error("Error adding attendee:", error)
       return null
@@ -56,8 +30,8 @@ const AtendeeForm = props => {
     if (!values.name) {
       errors.name = "attendee-name required "
     }
-    if (!(values.preboda || values.boda || values.noviene)) {
-      errors.eventos = "attendee-checkbox required"
+    if (!values.is_attend) {
+      errors.is_attend = "attendee-checkbox required"
     }
 
     return errors
@@ -66,40 +40,32 @@ const AtendeeForm = props => {
   const formik = useFormik({
     initialValues: {
       name: "",
-      preboda: false,
-      autocarpre: false,
-      boda: false,
-      autocarboda: false,
-      noviene: false,
+      is_attend: false,
       plusone: "",
-      food: "",
-      otros: "",
+      message: "",
+      created_at: new Date().toISOString(),
     },
     validate,
     onSubmit: async values => {
       setFormSent(true)
-      const result = await addAttendee({
+      await addAttendee({
+        id: crypto.randomUUID(),
         name: values.name,
-        preboda: values.preboda,
-        autocarpre: values.autocarpre,
-        boda: values.boda,
-        autocarboda: values.autocarboda,
-        noviene: values.noviene,
+        is_attend: values.is_attend,
         plusone: values.plusone,
-        food: values.food,
-        otros: values.otros,
+        message: values.message,
+        created_at: values.created_at,
       })
 
-      window.setTimeout(() => {
-        formik.resetForm()
-        setFormSent(false)
-      }, 5000)
+      // 폼 제출 후 즉시 모든 필드 초기화
+      formik.resetForm()
+      setFormSent(false)
     },
   })
 
   return (
     <div className="attendee-wrapper">
-      {/* <form
+      <form
         className="attendee-form"
         onSubmit={formik.handleSubmit}
         name="attendee-form"
@@ -112,46 +78,37 @@ const AtendeeForm = props => {
             type="text"
             placeholder="이름을 입력해주세요"
             onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
             value={formik.values.name}
             className={
-              formik.errors.name ? "attendee-name required" : "attendee-name"
+              formik.touched.name && formik.errors.name
+                ? "attendee-name required"
+                : "attendee-name"
             }
           />
         </label>
-        <div name="eventos" className="attendee-label">
+        <div name="is_attend" className="attendee-label">
           참석 여부*
         </div>
-        <label className="attendee-label-cb" htmlFor="boda">
+        <label className="attendee-label-cb" htmlFor="is_attend">
           <input
-            id="boda"
-            name="boda"
+            id="is_attend"
+            name="is_attend"
             type="checkbox"
             onChange={formik.handleChange}
-            checked={formik.values.boda}
+            onBlur={formik.handleBlur}
+            checked={formik.values.is_attend}
             className={
-              formik.errors.eventos
-                ? formik.errors.eventos
+              formik.touched.is_attend && formik.errors.is_attend
+                ? "attendee-checkbox required"
                 : "attendee-checkbox"
             }
-            disabled={formik.values.noviene ? "disabled" : ""}
           />
           {" 참석합니다"}
         </label>
 
         <label
-          className={
-            formik.values.preboda || formik.values.boda
-              ? "form-hidden"
-              : "attendee-label-cb"
-          }
-          htmlFor="noviene"
-        ></label>
-        <label
-          className={
-            formik.values.preboda || formik.values.boda
-              ? "attendee-label"
-              : "form-hidden"
-          }
+          className={formik.values.is_attend ? "attendee-label" : "form-hidden"}
           htmlFor="plusone"
         >
           동행인이 있다면 이름을 모두 적어주세요.
@@ -166,38 +123,37 @@ const AtendeeForm = props => {
           />
         </label>
         <label
-          className={
-            formik.values.preboda || formik.values.boda
-              ? "attendee-label"
-              : "form-hidden"
-          }
-          htmlFor="otros"
+          className={formik.values.is_attend ? "attendee-label" : "form-hidden"}
+          htmlFor="message"
         >
           기타 메모
           <textarea
-            id="otros"
-            name="otros"
+            id="message"
+            name="message"
             type="input"
             placeholder="기타 궁금한 점이나 문의사항을 남겨주세요"
             onChange={formik.handleChange}
-            value={formik.values.otros}
+            value={formik.values.message}
             className="attendee-input"
           />
         </label>
         <div className="error-msg">
-          {formik.errors.eventos || formik.errors.name
+          {(formik.touched.name && formik.errors.name) ||
+          (formik.touched.is_attend && formik.errors.is_attend)
             ? "* 필수 입력 사항을 확인해주세요"
             : null}
         </div>
-        <div className={formSent ? "success" : "form-hidden"}>
-          <div>제출 완료!</div>
-        </div>
+        {formSent && (
+          <div className="success">
+            <div>제출 완료!</div>
+          </div>
+        )}
         <div className="submit-btn-wrapper">
           <button className="submit-btn" type="submit" disabled={loading}>
             {loading ? "처리 중..." : "등록하기"}
           </button>
         </div>
-      </form> */}
+      </form>
     </div>
   )
 }
