@@ -4,7 +4,10 @@ async function getSheetsClient() {
   const auth = new google.auth.GoogleAuth({
     credentials: {
       client_email: process.env.GATSBY_GOOGLE_CLIENT_EMAIL,
-      private_key: process.env.GATSBY_GOOGLE_PRIVATE_KEY || "",
+      private_key: Buffer.from(
+        process.env.GATSBY_GOOGLE_PRIVATE_KEY || "",
+        "base64"
+      ).toString(),
     },
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   })
