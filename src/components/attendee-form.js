@@ -65,7 +65,7 @@ const AtendeeForm = props => {
 
   return (
     <div className="attendee-wrapper">
-      <form
+      {/* <form
         className="attendee-form"
         onSubmit={formik.handleSubmit}
         name="attendee-form"
@@ -153,7 +153,7 @@ const AtendeeForm = props => {
             {loading ? "처리 중..." : "등록하기"}
           </button>
         </div>
-      </form>
+      </form> */}
     </div>
   )
 }

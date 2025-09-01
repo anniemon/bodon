@@ -2,13 +2,10 @@ const { google } = require("googleapis")
 
 async function getSheetsClient() {
   const auth = new google.auth.GoogleAuth({
-    credentials: {
-      client_email: process.env.GATSBY_GOOGLE_CLIENT_EMAIL,
-      private_key: (process.env.GATSBY_GOOGLE_PRIVATE_KEY || "").replace(
-        /\\n/g,
-        "\n"
-      ),
-    },
+          credentials: {
+        client_email: process.env.GATSBY_GOOGLE_CLIENT_EMAIL,
+        private_key: Buffer.from(process.env.GATSBY_GOOGLE_PRIVATE_KEY || "", 'base64').toString(),
+      },
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   })
   const authClient = await auth.getClient()
@@ -57,7 +54,14 @@ exports.handler = async event => {
         range: appendRange,
         valueInputOption: "USER_ENTERED",
         requestBody: {
-          values: [[id || crypto.randomUUID(), name, message, created_at || new Date().toISOString()]],
+          values: [
+            [
+              id || crypto.randomUUID(),
+              name,
+              message,
+              created_at || new Date().toISOString(),
+            ],
+          ],
         },
       })
       return {
