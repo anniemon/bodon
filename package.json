@@ -29,6 +29,9 @@
     "remark-mdx": "^1.6.0",
     "yup": "^0.28.5"
   },
+  "overrides": {
+    "sharp": "0.34.3"
+  },
   "devDependencies": {
     "prettier": "^1.19.1"
   },
